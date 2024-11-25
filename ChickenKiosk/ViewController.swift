@@ -8,10 +8,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let cartContainerView = UIView()
+    let cartTableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-
+    
+    
 }
