@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    // 목데이터
+    let cartItems = ["허니콤보", "레드콤보", "교촌콤보", "레드순살", "허니오리지날"]
     
     // cart 관련 뷰 선언
     let cartContainerView = UIView()
@@ -57,6 +59,7 @@ class ViewController: UIViewController {
         cartHeaderStackView.alignment = .center
         
         cartContainerView.addSubview(cartHeaderStackView)
+        
         cartHeaderStackView.snp.makeConstraints{ make in
             make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
