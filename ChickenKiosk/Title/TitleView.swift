@@ -51,7 +51,6 @@ final class TitleView: UIView {
         
         subViews.forEach {
             self.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         titleImage.snp.makeConstraints { make in
