@@ -10,13 +10,18 @@ import SnapKit
 
 class ViewController: UIViewController {
     
-    let layout = UICollectionViewFlowLayout()
-    private lazy var collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
-
+    private lazy var collectionView: ChickenCollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        
+        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
-        print("view did load")
     }
     
     private func setCollectionView() {
