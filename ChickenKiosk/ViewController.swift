@@ -97,8 +97,21 @@ class ViewController: UIViewController, UITableViewDataSource {
         menuLabel.font = UIFont.systemFont(ofSize: 14)
         
         let priceLabel = UILabel()
-        priceLabel.text = "\(item).1"
+        priceLabel.text = "\(item.1)"
         priceLabel.font = UIFont.systemFont(ofSize: 14)
+        
+        // 메뉴, 수량, 가격 셀 StackView
+        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, priceLabel])
+        cellStackView.axis = .horizontal
+        cellStackView.distribution = .equalSpacing
+        cellStackView.alignment = .center
+        cellStackView.spacing = 10
+        
+        cell.contentView.addSubview(cellStackView)
+        
+        cellStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(16)
+        }
         
         return cell
     }
