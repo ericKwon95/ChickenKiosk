@@ -43,23 +43,32 @@ class ViewController: UIViewController {
         cartLabel.text = "장바구니"
         cartLabel.textAlignment = .left
         cartLabel.textColor = .black
-        cartContainerView.addSubview(cartLabel)
         
+        cartContainerView.addSubview(cartLabel)
         cartLabel.snp.makeConstraints{ make in
             make.left.equalToSuperview()
         }
-            
+        
         // 총 갯수 label
         let itemCountLabel = UILabel()
         itemCountLabel.text = "총 100개"
         itemCountLabel.textAlignment = .right
         itemCountLabel.textColor = .black
-        cartContainerView.addSubview(itemCountLabel)
         
+        cartContainerView.addSubview(itemCountLabel)
         itemCountLabel.snp.makeConstraints{ make in
             make.right.equalToSuperview()
         }
         
         let cartHeaderStackView = UIStackView(arrangedSubviews: [cartLabel, itemCountLabel])
+        cartHeaderStackView.axis = .horizontal
+        cartHeaderStackView.distribution = .equalSpacing
+        cartHeaderStackView.alignment = .center
+        
+        cartContainerView.addSubview(cartHeaderStackView)
+        cartHeaderStackView.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
     }
 }
