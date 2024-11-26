@@ -21,6 +21,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         // cart 컨테이너 뷰 설정 호출
         setUpCartContainerView()
+        
+        // cart 테이블 뷰 설정 호출
+        setUpCartTableView()
     }
     
     
@@ -75,7 +78,19 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         cartTableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(60)
-            make.leading.trailing.bottom.equalToSuperview().inset(16)
+            make.leading.trailing.bottom.equalToSuperview().inset(0)
         }
+    }
+    
+    // MARK: - UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cartItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") ?? UITableViewCell(style: .default, reuseIdentifier: "CartCell")
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell.textLabel?.text = cartItems[indexPath.row]
+        return cell
     }
 }
