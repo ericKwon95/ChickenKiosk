@@ -16,9 +16,23 @@ class ViewController: UIViewController {
         // SegmentedControl 생성
         let segmentedControl = UISegmentedControl(items: ["허니시리즈", "레드시리즈", "교촌시리즈"])
         segmentedControl.selectedSegmentIndex = 0 // 기본 선택된 세그먼트
-        segmentedControl.backgroundColor = .lightGray // 배경색 설정
-        segmentedControl.tintColor = .gray // 선택 색상 설정
+        segmentedControl.backgroundColor = .clear // 배경색 설정
+        segmentedControl.selectedSegmentTintColor = .systemYellow // 선택 색상 설정
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+        
+        // Divider 제거 및 텍스트 스타일 변경
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.gray, // 비선택 색상 설정
+            .font: UIFont.systemFont(ofSize: 14, weight: .regular)
+        ]
+        
+        segmentedControl.setTitleTextAttributes(titleAttributes, for: .normal)
+        
+        let selectedTittleAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black, // 선택 색상 설정
+            .font: UIFont.boldSystemFont(ofSize: 14)
+        ]
+        segmentedControl.setTitleTextAttributes(selectedTittleAttributes, for: .selected)
         
         // SegmentedControl 추가
         view.addSubview(segmentedControl)
@@ -32,7 +46,11 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    
     @objc func segmentChanged(_ sender: UISegmentedControl) {
         print("Selected segment index: \(sender.selectedSegmentIndex)")
     }
 }
+
+
