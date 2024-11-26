@@ -27,5 +27,11 @@ class ViewController: UIViewController {
     }
 }
 
-
+#if DEBUG
+import SwiftUI
+struct PreView: PreviewProvider {
+    static var previews: some View {
+        ViewController().toPreview()
+    }
 }
+#endif
