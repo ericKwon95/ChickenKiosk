@@ -24,7 +24,7 @@ class ChickenCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
@@ -54,7 +54,7 @@ class ChickenCell: UICollectionViewCell {
     
     private func layout() {
         imageView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(100)
             $0.centerX.equalToSuperview()
         }
