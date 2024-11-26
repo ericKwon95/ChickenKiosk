@@ -89,9 +89,17 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") ?? UITableViewCell(style: .default, reuseIdentifier: "CartCell")
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         let item = cartItems[indexPath.row]
-        cell.textLabel?.text = "\(item.0) \(item.1)원"
+
+        // 메뉴, 수량, 가격
+        let menuLabel = UILabel()
+        menuLabel.text = item.0
+        menuLabel.font = UIFont.systemFont(ofSize: 14)
+        
+        let priceLabel = UILabel()
+        priceLabel.text = "\(item).1"
+        priceLabel.font = UIFont.systemFont(ofSize: 14)
+        
         return cell
     }
 }
