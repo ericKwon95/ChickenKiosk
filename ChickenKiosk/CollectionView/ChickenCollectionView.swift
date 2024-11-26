@@ -21,8 +21,11 @@ class ChickenCollectionView: UICollectionView {
     private func setup() {
         delegate = self
         dataSource = self
-        backgroundColor = .gray
         register(ChickenCell.self, forCellWithReuseIdentifier: ChickenCell.identifier)
+        
+        layer.cornerRadius = 20.0
+        layer.borderWidth = 3.0
+        layer.borderColor = CGColor(red: 0.842, green: 0.842, blue: 0.842, alpha: 1.0)
     }
 }
 
