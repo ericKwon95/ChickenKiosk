@@ -59,5 +59,7 @@ class ViewController: UIViewController {
         itemCountLabel.snp.makeConstraints{ make in
             make.right.equalToSuperview()
         }
+        
+        let cartHeaderStackView = UIStackView(arrangedSubviews: [cartLabel, itemCountLabel])
     }
 }
