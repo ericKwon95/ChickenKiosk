@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         footerView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(view.snp.bottom).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(44)
         }
     }
