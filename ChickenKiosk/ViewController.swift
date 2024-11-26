@@ -72,5 +72,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         cartTableView.dataSource = self
         cartTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CartCell")
         cartTableView.separatorStyle = .singleLine
+        
+        cartTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(60)
+            make.leading.trailing.bottom.equalToSuperview().inset(16)
+        }
     }
 }
