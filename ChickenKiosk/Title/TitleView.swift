@@ -8,22 +8,29 @@
 import UIKit
 import SnapKit
 
+/// 타이틀 상수
 fileprivate enum Constant {
     static let title = "ChickenKiosk"
 }
 
+/// 앱 타이틀을 나타내는 화면
 final class TitleView: UIView {
+    // MARK: - View Properties
+    // 타이틀 이미지
     private let titleImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(resource: .title))
         return imageView
     }()
     
+    // 타이틀 라벨
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Constant.title
         label.font = .systemFont(ofSize: 32, weight: .bold)
         return label
     }()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
@@ -34,6 +41,8 @@ final class TitleView: UIView {
         fatalError("not using storyboard")
     }
     
+    // MARK: - Configuration
+    // subview 추가 및 제약조건 설정
     private func configureUI() {
         let subViews: [UIView] = [
             titleImage,
