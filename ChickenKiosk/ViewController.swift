@@ -13,5 +13,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-
+#if DEBUG
+import SwiftUI
+struct PreView: PreviewProvider {
+    static var previews: some View {
+        ViewController().toPreview()
+    }
 }
+#endif
