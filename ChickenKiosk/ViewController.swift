@@ -15,12 +15,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureFooterViewUI()
+        view.backgroundColor = .white
     }
     
     /// 하단 뷰 subview에 추가 및 위치 설정
     func configureFooterViewUI() {
         view.addSubview(footerView)
-        footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)

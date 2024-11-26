@@ -69,7 +69,6 @@ final class FooterView: UIView {
         
         subviews.forEach {
             self.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         contentStackView.snp.makeConstraints { make in
