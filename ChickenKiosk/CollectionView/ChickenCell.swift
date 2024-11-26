@@ -32,7 +32,7 @@ class ChickenCell: UICollectionViewCell {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .systemFont(ofSize: 13)
+        label.font = .systemFont(ofSize: 15)
         
         return label
     }()
@@ -40,7 +40,7 @@ class ChickenCell: UICollectionViewCell {
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 13)
         
         return label
     }()
@@ -65,7 +65,7 @@ class ChickenCell: UICollectionViewCell {
         }
         
         priceLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(5)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
             $0.centerX.equalToSuperview()
         }
     }
