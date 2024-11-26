@@ -40,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         cartContainerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(150)
-            make.height.equalTo(200)
+            make.height.equalTo(250)
         }
         
         // 장바구니 label
@@ -97,10 +97,19 @@ class ViewController: UIViewController, UITableViewDataSource {
         menuLabel.font = UIFont.systemFont(ofSize: 14)
         
         let minusButton = UIButton()
+        minusButton.setTitle("-", for: .normal)
+        minusButton.setTitleColor(.black, for: .normal)
+        minusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         let quantityLabel = UILabel()
+        quantityLabel.text = "1"
+        quantityLabel.font = UIFont.systemFont(ofSize: 14)
+        quantityLabel.textAlignment = .center
         
         let plusButton = UIButton()
+        plusButton.setTitle("+", for: .normal)
+        plusButton.setTitleColor(.black, for: .normal)
+        plusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         let priceLabel = UILabel()
         priceLabel.text = "\(item.1)"
@@ -108,9 +117,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         let quantityStackView  = UIStackView(arrangedSubviews: [minusButton, quantityLabel, plusButton])
         quantityStackView.axis = .horizontal
+        quantityStackView.spacing = 8
         
         // 메뉴, 수량, 가격 셀 StackView
-        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, priceLabel])
+        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, quantityStackView, priceLabel])
         cellStackView.axis = .horizontal
         cellStackView.distribution = .equalSpacing
         cellStackView.alignment = .center
