@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
     // 목데이터
     let cartItems = ["허니콤보", "레드콤보", "교촌콤보", "레드순살", "허니오리지날"]
     
@@ -64,5 +64,13 @@ class ViewController: UIViewController {
             make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
         }
+    }
+    
+    // cart 테이블 뷰 설정 함수
+    func setUpCartTableView() {
+        cartContainerView.addSubview(cartTableView)
+        cartTableView.dataSource = self
+        cartTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CartCell")
+        cartTableView.separatorStyle = .singleLine
     }
 }
