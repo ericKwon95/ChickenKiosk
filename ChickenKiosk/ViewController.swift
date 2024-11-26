@@ -96,9 +96,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         menuLabel.text = item.0
         menuLabel.font = UIFont.systemFont(ofSize: 14)
         
+        let minusButton = UIButton()
+        
+        let quantityLabel = UILabel()
+        
+        let plusButton = UIButton()
+        
         let priceLabel = UILabel()
         priceLabel.text = "\(item.1)"
         priceLabel.font = UIFont.systemFont(ofSize: 14)
+        
+        let quantityStackView  = UIStackView(arrangedSubviews: [minusButton, quantityLabel, plusButton])
+        quantityStackView.axis = .horizontal
         
         // 메뉴, 수량, 가격 셀 StackView
         let cellStackView = UIStackView(arrangedSubviews: [menuLabel, priceLabel])
