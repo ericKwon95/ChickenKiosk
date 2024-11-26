@@ -10,7 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController, UITableViewDataSource {
     // 목데이터
-    let cartItems = ["허니콤보", "레드콤보", "교촌콤보", "레드순살", "허니오리지날"]
+    let cartItems = [("허니콤보", 23000), ("레드콤보", 25000), ("교촌콤보", 24000), ("레드순살", 26000), ("허니오리지날", 22000)]
     
     // cart 관련 뷰 선언
     let cartContainerView = UIView()
@@ -78,7 +78,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         cartTableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(60)
-            make.leading.trailing.bottom.equalToSuperview().inset(0)
+            make.leading.trailing.bottom.equalToSuperview().inset(10)
         }
     }
     
@@ -90,7 +90,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") ?? UITableViewCell(style: .default, reuseIdentifier: "CartCell")
         cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell.textLabel?.text = cartItems[indexPath.row]
+        let item = cartItems[indexPath.row]
+        cell.textLabel?.text = "\(item.0) \(item.1)원"
         return cell
     }
 }
