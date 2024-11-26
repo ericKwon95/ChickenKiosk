@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         // 총 갯수 label
         let itemCountLabel = UILabel()
-        itemCountLabel.text = "총 100개"
+        itemCountLabel.text = "총 \(cartItems.count)개"
         itemCountLabel.textAlignment = .right
         itemCountLabel.textColor = .black
         
