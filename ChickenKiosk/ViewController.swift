@@ -44,22 +44,13 @@ class ViewController: UIViewController {
         cartLabel.textAlignment = .left
         cartLabel.textColor = .black
         
-        cartContainerView.addSubview(cartLabel)
-        cartLabel.snp.makeConstraints{ make in
-            make.left.equalToSuperview()
-        }
-        
         // 총 갯수 label
         let itemCountLabel = UILabel()
         itemCountLabel.text = "총 100개"
         itemCountLabel.textAlignment = .right
         itemCountLabel.textColor = .black
         
-        cartContainerView.addSubview(itemCountLabel)
-        itemCountLabel.snp.makeConstraints{ make in
-            make.right.equalToSuperview()
-        }
-        
+        // 장바구니 label과 총 갯수 label을 StackView로 추가
         let cartHeaderStackView = UIStackView(arrangedSubviews: [cartLabel, itemCountLabel])
         cartHeaderStackView.axis = .horizontal
         cartHeaderStackView.distribution = .equalSpacing
