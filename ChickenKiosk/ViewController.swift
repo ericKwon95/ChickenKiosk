@@ -26,6 +26,12 @@ class ViewController: UIViewController {
         cartContainerView.layer.borderWidth = 1
         cartContainerView.layer.borderColor = UIColor.lightGray.cgColor
         
+        cartContainerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(150)
+            make.height.equalTo(200)
+        }
+        
         let cartLabel = UILabel()
         cartLabel.text = "장바구니"
         cartLabel.textAlignment = .left
@@ -34,12 +40,6 @@ class ViewController: UIViewController {
         
         cartLabel.snp.makeConstraints{ make in
             make.left.equalToSuperview()
-        }
-        
-        cartContainerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(150)
-            make.height.equalTo(200)
         }
     }
 }
