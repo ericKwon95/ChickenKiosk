@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 fileprivate enum Constant {
-    static let title = "Chicken Kiosk"
+    static let title = "ChickenKiosk"
 }
 
 final class TitleView: UIView {
