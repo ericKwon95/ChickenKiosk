@@ -6,13 +6,24 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
     private let titleView = TitleView()
 
+    private lazy var collectionView: ChickenCollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        
+        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
+    }()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setCollectionView()
     }
     
     private func configureUI() {
@@ -23,6 +34,17 @@ class ViewController: UIViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.height.equalTo(50)
+        }
+    }
+  
+   private func setCollectionView() {
+        view.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.equalTo(300)
         }
     }
 }
