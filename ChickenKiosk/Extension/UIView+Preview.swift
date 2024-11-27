@@ -9,8 +9,6 @@ import SwiftUI
 
 // iOS 16.0 이하에서도 UIView를 Preview 사용 가능하도록 하는 익스텐션
 #if DEBUG
-import SwiftUI
-
 extension UIView {
     private struct Preview: UIViewRepresentable {
         let view: UIView

@@ -39,7 +39,6 @@ final class SumView: UIView {
         titleLabel.text = "총 주문금액"
         return titleLabel
     }()
-    
 
     let valueStackView: UIStackView = {
         let stackView = UIStackView()
@@ -76,6 +75,7 @@ final class SumView: UIView {
         titleLabel.text = "28,000"
         return titleLabel
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -122,4 +122,3 @@ extension SumView {
 //        SumView().toPreview().frame(width: 300, height: 200)
 //    }
 //}#endif
-
