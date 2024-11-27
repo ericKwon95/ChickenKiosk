@@ -9,10 +9,14 @@ import UIKit
 import SnapKit
 
 final class SumView: UIView {
+    let containerView = UIView()
+    
     let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -39,13 +43,13 @@ final class SumView: UIView {
         titleLabel.text = "총 주문금액"
         return titleLabel
     }()
-
+    
     let valueStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .trailing
         stackView.distribution = .fill
-        stackView.spacing = 8
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -88,10 +92,19 @@ final class SumView: UIView {
     }
 }
 
+// MARK: - Setup UI
+
 extension SumView {
     func setupUI() {
-        self.backgroundColor = .gray
-        addSubViews([titleStackView, valueStackView])
+        containerView.backgroundColor = .white
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = CGColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+        containerView.layer.cornerRadius = 20
+        
+        addSubViews([containerView,
+                      titleStackView,
+                      valueStackView])
+        
         titleStackView.addArrangedSubViews([orderAmountTitle,
                                             deliveryTipsTitle,
                                             totalOrderAmountTitle])
@@ -103,14 +116,21 @@ extension SumView {
     
     // TODO: - 추후 여백 조정
     func setupConstraints() {
+        containerView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
         titleStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(containerView.snp.leading).offset(16)
+            make.centerY.equalTo(containerView)
         }
         
         valueStackView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.top.bottom.equalToSuperview()
+            make.trailing.equalTo(containerView.snp.trailing).offset(-16)
+            make.centerY.equalTo(containerView)
         }
     }
 }
