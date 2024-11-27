@@ -10,7 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController {
     private let titleView = TitleView()
-
+    private let footerView = FooterView()
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         setCollectionView()
+        view.backgroundColor = .white
+        configureFooterViewUI()
     }
     
     private func configureUI() {
@@ -37,7 +39,7 @@ class ViewController: UIViewController {
         }
     }
   
-   private func setCollectionView() {
+    private func setCollectionView() {
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
@@ -47,8 +49,19 @@ class ViewController: UIViewController {
             $0.height.equalTo(300)
         }
     }
-}
 
+ 	/// 하단 뷰 subview에 추가 및 위치 설정
+    func configureFooterViewUI() {
+        view.addSubview(footerView)
+        footerView.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.height.equalTo(44)
+        }
+    }
+}
+    
 #if DEBUG
 import SwiftUI
 struct PreView: PreviewProvider {
