@@ -45,6 +45,8 @@ final class SumView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .trailing
+        stackView.distribution = .fill
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -90,13 +92,13 @@ extension SumView {
     func setupUI() {
         self.backgroundColor = .gray
         addSubViews([titleStackView, valueStackView])
+        titleStackView.addArrangedSubViews([orderAmountTitle,
+                                            deliveryTipsTitle,
+                                            totalOrderAmountTitle])
         
-        titleStackView.addSubViews([orderAmountTitle,
-                                    deliveryTipsTitle,
-                                    totalOrderAmountTitle])
-        valueStackView.addSubViews([orderAmount,
-                                    deliveryTips,
-                                    totalOrderAmount])
+        valueStackView.addArrangedSubViews([orderAmount,
+                                            deliveryTips,
+                                            totalOrderAmount])
     }
     
     // TODO: - 추후 여백 조정
@@ -106,34 +108,18 @@ extension SumView {
             make.top.bottom.equalToSuperview()
         }
         
-        orderAmountTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
-        }
-        
-        deliveryTipsTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
-        }
-        
-        totalOrderAmountTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
-        }
-        
-        
         valueStackView.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.top.bottom.equalToSuperview()
         }
-        
-        orderAmount.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
-        }
-        
-        deliveryTips.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
-        }
-        
-        totalOrderAmount.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
-        }
     }
 }
+
+//#if DEBUG
+//import SwiftUI
+//struct MyView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        SumView().toPreview().frame(width: 300, height: 200)
+//    }
+//}#endif
+
