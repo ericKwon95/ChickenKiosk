@@ -9,8 +9,27 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    
     private let titleView = TitleView()
-    private let footerView = FooterView()
+    
+    private let categoryView: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = 10
+        
+        return view
+    }()
+    
+    private let indicatorView: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = .appPrimary
+        view.layer.cornerRadius = 10
+        
+        return view
+    }()
+    
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -19,6 +38,8 @@ class ViewController: UIViewController {
         let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
+    
+    private let footerView = FooterView()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +47,7 @@ class ViewController: UIViewController {
         setCollectionView()
         view.backgroundColor = .white
         configureFooterViewUI()
+        setupCategoryView()
     }
     
     private func configureUI() {
@@ -40,13 +62,33 @@ class ViewController: UIViewController {
     }
   
     private func setCollectionView() {
-        view.addSubview(collectionView)
+        [categoryView, collectionView]
+            .forEach {
+                view.addSubview($0)
+            }
         
         collectionView.snp.makeConstraints {
+            $0.top.equalTo(categoryView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
-            $0.centerX.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(300)
+        }
+    }
+    
+    private func setupCategoryView() {
+        categoryView.addSubview(indicatorView)
+        
+        categoryView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.height.equalTo(40)
+        }
+        
+        indicatorView.snp.makeConstraints {
+            $0.top.bottom.leading.equalToSuperview()
+            $0.width.equalToSuperview().dividedBy(3)
         }
     }
 
