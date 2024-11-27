@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }()
     */
     
-    private let buttons = [CategoryButton("허니시리즈"), CategoryButton("레드시리즈"), CategoryButton("교촌시리즈")]
+    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -141,8 +141,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-    @objc func categoryTapped(_ sender: UIButton) {
+    @objc func categoryTapped(_ sender: CategoryButton) {
         setButtonSelected(for: sender)
+        collectionView.series = sender.series
+        collectionView.reloadData()
     }
     
     private func setButtonSelected(for button: UIButton) {

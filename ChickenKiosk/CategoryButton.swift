@@ -9,13 +9,13 @@ import UIKit
 
 class CategoryButton: UIButton {
     
-    let title: String
+    let series: MockChickenSeries
     
-    init(_ title: String) {
-        self.title = title
+    init(_ series: MockChickenSeries) {
+        self.series = series
         super.init(frame: .zero)
         
-        setTitle(title, for: .normal)
+        setTitle(series.title, for: .normal)
         setTitleColor(.gray, for: .normal)
         setTitleColor(.black, for: .selected)
         
