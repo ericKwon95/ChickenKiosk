@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         return view
     }()
     
+    /*
     private let indicatorView: UIView = {
         let view = UIView()
         
@@ -29,6 +30,9 @@ class ViewController: UIViewController {
         
         return view
     }()
+    */
+    
+    private let buttons = [CategoryButton("허니시리즈"), CategoryButton("레드시리즈"), CategoryButton("교촌시리즈")]
     
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -77,7 +81,7 @@ class ViewController: UIViewController {
     }
     
     private func setupCategoryView() {
-        categoryView.addSubview(indicatorView)
+        // categoryView.addSubview(indicatorView)
         
         categoryView.snp.makeConstraints {
             $0.top.equalTo(titleView.snp.bottom).offset(16)
@@ -86,9 +90,41 @@ class ViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
+        /*
         indicatorView.snp.makeConstraints {
             $0.top.bottom.leading.equalToSuperview()
             $0.width.equalToSuperview().dividedBy(3)
+        }
+        */
+        
+        // indicator view 삭제 시 enumerated() 불필요
+        buttons.enumerated().forEach { index, button in
+            categoryView.addSubview(button)
+            // button.tag = index
+            button.isSelected = false
+            
+            button.snp.makeConstraints {
+                $0.width.equalToSuperview().dividedBy(3)
+                $0.height.equalToSuperview()
+                $0.centerY.equalToSuperview()
+            }
+            
+            button.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+        }
+        
+        // 허니시리즈 버튼은 눌린 채로 시작
+        setButtonSelected(for: buttons[0])
+        
+        buttons[0].snp.makeConstraints {
+            $0.leading.equalToSuperview()
+        }
+        
+        buttons[1].snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+        }
+        
+        buttons[2].snp.makeConstraints {
+            $0.trailing.equalToSuperview()
         }
     }
 
@@ -101,6 +137,22 @@ class ViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(44)
         }
+    }
+}
+
+extension ViewController {
+    @objc func categoryTapped(_ sender: UIButton) {
+        setButtonSelected(for: sender)
+    }
+    
+    private func setButtonSelected(for button: UIButton) {
+        buttons.forEach {
+            $0.backgroundColor = .clear
+            $0.isSelected = false
+        }
+        
+        button.backgroundColor = .appPrimary
+        button.isSelected = true
     }
 }
     
