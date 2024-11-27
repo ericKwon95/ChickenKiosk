@@ -74,7 +74,7 @@ class CartView: UIView, UITableViewDataSource {
     func setUpCartTableView() {
         cartContainerView.addSubview(cartTableView)
         cartTableView.dataSource = self
-        cartTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CartCell")
+        cartTableView.register(CartTableViewCell.self, forCellReuseIdentifier: "CartCell")
         cartTableView.separatorStyle = .singleLine
         
         cartTableView.snp.makeConstraints { make in
@@ -89,50 +89,9 @@ class CartView: UIView, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") ?? UITableViewCell(style: .default, reuseIdentifier: "CartCell")
-        let item = cartItems[indexPath.row]
-        
-        // 메뉴, 수량, 가격
-        let menuLabel = UILabel()
-        menuLabel.text = item.0
-        menuLabel.font = UIFont.systemFont(ofSize: 14)
-        
-        let minusButton = UIButton()
-        minusButton.setTitle("-", for: .normal)
-        minusButton.setTitleColor(.black, for: .normal)
-        minusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        
-        let quantityLabel = UILabel()
-        quantityLabel.text = "1"
-        quantityLabel.font = UIFont.systemFont(ofSize: 14)
-        quantityLabel.textAlignment = .center
-        
-        let plusButton = UIButton()
-        plusButton.setTitle("+", for: .normal)
-        plusButton.setTitleColor(.black, for: .normal)
-        plusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        
-        let priceLabel = UILabel()
-        priceLabel.text = "\(item.1)"
-        priceLabel.font = UIFont.systemFont(ofSize: 14)
-        
-        let quantityStackView  = UIStackView(arrangedSubviews: [minusButton, quantityLabel, plusButton])
-        quantityStackView.axis = .horizontal
-        quantityStackView.spacing = 8
-        
-        // 메뉴, 수량, 가격 셀 StackView
-        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, quantityStackView, priceLabel])
-        cellStackView.axis = .horizontal
-        cellStackView.distribution = .equalSpacing
-        cellStackView.alignment = .center
-        cellStackView.spacing = 10
-        
-        cell.contentView.addSubview(cellStackView)
-        
-        cellStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartTableViewCell
+            let item = cartItems[indexPath.row]
+            cell.configure(with: item)
+            return cell
         }
-        
-        return cell
-    }
 }
