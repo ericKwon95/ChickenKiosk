@@ -13,6 +13,6 @@ extension UIView {
     }
     
     func addArrangedSubViews(_ views: [UIView]) {
-        views.forEach { self.addArrangedSubViews([$0]) }
+        views.forEach { self.addArrangedSubView([$0]) }
     }
 }
