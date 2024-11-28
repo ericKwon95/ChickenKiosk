@@ -12,7 +12,7 @@ import SnapKit
 final class FooterView: UIView {
     // MARK: - View Properties
     // 주문 취소 버튼
-    private let cancelOrderButton: UIButton = {
+    let cancelOrderButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         var titleContainer = AttributeContainer()
         titleContainer.font = UIFont.boldSystemFont(ofSize: 22)
@@ -25,7 +25,7 @@ final class FooterView: UIView {
     }()
     
     // 주문하기 버튼
-    private let confirmOrderButton: UIButton = {
+    let confirmOrderButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         var titleContainer = AttributeContainer()
         titleContainer.font = UIFont.boldSystemFont(ofSize: 22)
