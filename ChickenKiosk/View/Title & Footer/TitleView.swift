@@ -10,7 +10,7 @@ import SnapKit
 
 /// 타이틀 상수
 fileprivate enum Constant {
-    static let title = "ChickenKiosk"
+    static let title = "꼬끼오스크"
 }
 
 /// 앱 타이틀을 나타내는 화면
