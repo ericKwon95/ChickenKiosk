@@ -100,6 +100,12 @@ class KioskViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(44)
         }
+        
+        manager.orderDidSet = { [weak self] in
+            guard let self = self else { return }
+            self.cartView.reloadData()
+            self.sumView.updateTotal(totalPrice: (self.manager.totalPrice))
+        }
     }
     
     private func setupCategoryView() {

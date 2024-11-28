@@ -47,12 +47,11 @@ class CartView: UIView, UITableViewDataSource {
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(15)
         }
-        
-        manager.orderDidSet = {
-            print("reloadData")
-            self.cartTableView.reloadData()
-            self.cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
-        }
+    }
+
+    func reloadData() {
+        cartTableView.reloadData()
+        cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
     }
     
     // cart 테이블 뷰 설정 함수

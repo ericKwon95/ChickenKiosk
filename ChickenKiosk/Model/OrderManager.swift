@@ -21,6 +21,12 @@ final class OrderManager {
         }
     }
     
+    var totalPrice: Int {
+        orders.reduce(0) { partialResult, order in
+            partialResult + order.totalPrice
+        }
+    }
+    
     init(orderDidSet: @escaping () -> Void) {
         self.orderDidSet = orderDidSet
     }
