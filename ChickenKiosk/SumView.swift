@@ -9,10 +9,14 @@ import UIKit
 import SnapKit
 
 final class SumView: UIView {
+    let containerView = UIView()
+    
     let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -40,11 +44,12 @@ final class SumView: UIView {
         return titleLabel
     }()
     
-
     let valueStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .trailing
+        stackView.distribution = .fill
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -75,6 +80,7 @@ final class SumView: UIView {
         return titleLabel
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -86,54 +92,53 @@ final class SumView: UIView {
     }
 }
 
+// MARK: - Setup UI
+
 extension SumView {
     func setupUI() {
-        self.backgroundColor = .gray
-        addSubViews([titleStackView, valueStackView])
+        containerView.backgroundColor = .white
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = CGColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+        containerView.layer.cornerRadius = 20
         
-        titleStackView.addSubViews([orderAmountTitle,
-                                    deliveryTipsTitle,
-                                    totalOrderAmountTitle])
-        valueStackView.addSubViews([orderAmount,
-                                    deliveryTips,
-                                    totalOrderAmount])
+        addSubViews([containerView,
+                      titleStackView,
+                      valueStackView])
+        
+        titleStackView.addArrangedSubViews([orderAmountTitle,
+                                            deliveryTipsTitle,
+                                            totalOrderAmountTitle])
+        
+        valueStackView.addArrangedSubViews([orderAmount,
+                                            deliveryTips,
+                                            totalOrderAmount])
     }
     
     // TODO: - 추후 여백 조정
     func setupConstraints() {
-        titleStackView.snp.makeConstraints { make in
+        containerView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
-        orderAmountTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
+        titleStackView.snp.makeConstraints { make in
+            make.leading.equalTo(containerView.snp.leading).offset(16)
+            make.centerY.equalTo(containerView)
         }
-        
-        deliveryTipsTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
-        }
-        
-        totalOrderAmountTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(titleStackView)
-        }
-        
         
         valueStackView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.top.bottom.equalToSuperview()
-        }
-        
-        orderAmount.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
-        }
-        
-        deliveryTips.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
-        }
-        
-        totalOrderAmount.snp.makeConstraints { make in
-            make.centerY.equalTo(valueStackView)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-16)
+            make.centerY.equalTo(containerView)
         }
     }
 }
+
+//#if DEBUG
+//import SwiftUI
+//struct MyView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        SumView().toPreview().frame(width: 300, height: 200)
+//    }
+//}#endif
