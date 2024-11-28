@@ -9,9 +9,9 @@ import UIKit
 
 class CategoryButton: UIButton {
     
-    let series: MockChickenSeries
+    let series: ChickenSeries
     
-    init(_ series: MockChickenSeries) {
+    init(_ series: ChickenSeries) {
         self.series = series
         super.init(frame: .zero)
         
@@ -21,7 +21,7 @@ class CategoryButton: UIButton {
         
         titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
-        layer.cornerRadius = 10
+        layer.cornerRadius = 20
     }
     
     required init?(coder: NSCoder) {

@@ -70,7 +70,7 @@ class ChickenCell: UICollectionViewCell {
         }
     }
     
-    func bind(_ chicken: MockChicken) {
+    func bind(_ chicken: Chicken) {
         imageView.image = chicken.image
         nameLabel.text = chicken.name
         priceLabel.text = chicken.priceText

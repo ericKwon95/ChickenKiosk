@@ -11,6 +11,9 @@ import SnapKit
 class KioskViewController: UIViewController {
     private let titleView = TitleView()
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
+    
+    let manager = OrderManager(orderDidSet: {})
+    
     private let categoryView: UIView = {
         let view = UIView()
         
@@ -19,15 +22,17 @@ class KioskViewController: UIViewController {
         
         return view
     }()
+    
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         
-        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout, orderManager: manager)
         return collectionView
     }()
-    private let cartView = CartView()
+    
+    private lazy var cartView = CartView(mananger: manager)
     private let sumView = SumView()
     private let footerView = FooterView()
     
@@ -78,13 +83,13 @@ class KioskViewController: UIViewController {
         cartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(150)
-            make.top.equalTo(collectionView.snp.bottom).offset(16)
+            make.top.equalTo(collectionView.snp.bottom).offset(8)
         }
         
         sumView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.top.equalTo(cartView.snp.bottom).offset(16)
+            make.top.equalTo(cartView.snp.bottom).offset(8)
             make.bottom.equalTo(footerView.snp.top).offset(-16)
             make.height.equalTo(70)
         }
@@ -94,6 +99,12 @@ class KioskViewController: UIViewController {
             make.trailing.equalTo(view.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
             make.height.equalTo(44)
+        }
+        
+        manager.orderDidSet = { [weak self] in
+            guard let self = self else { return }
+            self.cartView.reloadData()
+            self.sumView.updateTotal(totalPrice: (self.manager.totalPrice))
         }
     }
     

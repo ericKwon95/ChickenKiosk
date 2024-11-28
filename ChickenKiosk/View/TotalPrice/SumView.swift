@@ -32,7 +32,7 @@ final class SumView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 12, weight: .regular)
         titleLabel.textColor = .black
-        titleLabel.text = "배달팁"
+        titleLabel.text = " "
         return titleLabel
     }()
     
@@ -58,7 +58,7 @@ final class SumView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 12, weight: .regular)
         titleLabel.textColor = .black
-        titleLabel.text = "23,000"
+        titleLabel.text = "0"
         return titleLabel
     }()
     
@@ -67,7 +67,7 @@ final class SumView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 12, weight: .regular)
         titleLabel.textColor = .black
-        titleLabel.text = "5,000"
+        titleLabel.text = " "
         return titleLabel
     }()
     
@@ -76,7 +76,7 @@ final class SumView: UIView {
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         titleLabel.textColor = .black
-        titleLabel.text = "28,000"
+        titleLabel.text = "0"
         return titleLabel
     }()
     
@@ -85,10 +85,28 @@ final class SumView: UIView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
+        hideTogoDiscount()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateTotal(totalPrice: Int) {
+        orderAmount.text = "\(totalPrice.formatted(.number))"
+        totalOrderAmount.text = "\((totalPrice-3000).formatted(.number))"
+        showTogoDiscount()
+        // TODO: 메뉴 모두 제거 시 hide Discount
+    }
+    
+    private func showTogoDiscount() {
+        deliveryTipsTitle.text = "포장할인"
+        deliveryTips.text = "-3,000"
+    }
+    
+    private func hideTogoDiscount() {
+        deliveryTipsTitle.text = " "
+        deliveryTips.text = " "
     }
 }
 
@@ -98,7 +116,7 @@ extension SumView {
     func setupUI() {
         containerView.backgroundColor = .white
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = CGColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+        containerView.layer.borderColor = UIColor.appSecondary.cgColor
         containerView.layer.cornerRadius = 20
         
         addSubViews([containerView,

@@ -9,10 +9,12 @@ import UIKit
 
 class ChickenCollectionView: UICollectionView {
     
-    var series: MockChickenSeries?
+    var series: ChickenSeries?
+    let manager: OrderManager
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: .zero, collectionViewLayout: layout)
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, orderManager: OrderManager) {
+        self.manager = orderManager
+        super.init(frame: frame, collectionViewLayout: layout)
         setup()
         self.series = .honey
     }
@@ -28,10 +30,12 @@ class ChickenCollectionView: UICollectionView {
         register(ChickenCell.self, forCellWithReuseIdentifier: ChickenCell.identifier)
         
         layer.cornerRadius = 20.0
-        layer.borderWidth = 3.0
-        layer.borderColor = CGColor(red: 0.842, green: 0.842, blue: 0.842, alpha: 1.0)
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.appSecondary.cgColor
     }
 }
+
+
 
 extension ChickenCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -53,7 +57,16 @@ extension ChickenCollectionView: UICollectionViewDataSource {
 
 extension ChickenCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let index = indexPath.item
+        guard let chicken = series?.chickens[index] else {
+            return
+        }
+        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
+            manager.orders[index].count += 1
+        } else {
+            let newOrder = Order(menu: chicken)
+            manager.orders.append(newOrder)
+        }
     }
 }
 
