@@ -9,20 +9,20 @@ import UIKit
 import SnapKit
 
 // CartHeaderView 클래스 정의
-class CartHeaderView: UIStackView {
+class CartHeaderStackView: UIStackView {
     private let cartLabel = UILabel()
     private let itemCountLabel = UILabel()
     
     init(itemCount: Int) {
         super.init(frame: .zero)
-        setUpViews(itemCount: itemCount)
+        setUpCartHeaderStackView(itemCount: itemCount)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpViews(itemCount: Int) {
+    private func setUpCartHeaderStackView(itemCount: Int) {
         // StackView 설정
         axis = .horizontal
         distribution = .equalSpacing

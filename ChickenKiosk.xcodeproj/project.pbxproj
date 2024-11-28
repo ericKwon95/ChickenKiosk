@@ -14,9 +14,22 @@
 		60DA9E982CF43D1600B07E53 /* ChickenKiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChickenKiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		60F3273C2CF4569200E292DC /* Exceptions for "ChickenKiosk" folder in "ChickenKiosk" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Info.plist,
+			);
+			target = 60DA9E972CF43D1600B07E53 /* ChickenKiosk */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		60DA9E9A2CF43D1600B07E53 /* ChickenKiosk */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				60F3273C2CF4569200E292DC /* Exceptions for "ChickenKiosk" folder in "ChickenKiosk" target */,
+			);
 			path = ChickenKiosk;
 			sourceTree = "<group>";
 		};
@@ -143,7 +156,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ChickenKiosk/Info.plist;
+				INFOPLIST_FILE = ChickenKiosk/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -175,7 +188,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ChickenKiosk/Info.plist;
+				INFOPLIST_FILE = ChickenKiosk/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
