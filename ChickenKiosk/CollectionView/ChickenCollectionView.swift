@@ -8,9 +8,13 @@
 import UIKit
 
 class ChickenCollectionView: UICollectionView {
+    
+    var series: MockChickenSeries?
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: layout)
         setup()
+        self.series = .honey
     }
     
     required init?(coder: NSCoder) {
@@ -31,13 +35,17 @@ class ChickenCollectionView: UICollectionView {
 
 extension ChickenCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        MockChicken.honeySeries.count
+        guard let series else { return 0 }
+        return series.chickens.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell else { return UICollectionViewCell() }
+        guard
+            let cell = dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell,
+            let series = series
+        else { return UICollectionViewCell() }
         
-        cell.bind(MockChicken.honeySeries[indexPath.item])
+        cell.bind(series.chickens[indexPath.item])
         
         return cell
     }
