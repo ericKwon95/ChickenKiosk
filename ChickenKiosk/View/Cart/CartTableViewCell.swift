@@ -15,7 +15,13 @@ class CartTableViewCell: UITableViewCell {
     private let increaseQuantityButton = UIButton()
     private let priceLabel = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    var minusButtonTapped: () -> Void = {}
+    var plusButtonTapped: () -> Void = {}
+    
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpCell()
     }
@@ -33,6 +39,7 @@ class CartTableViewCell: UITableViewCell {
         decreaseQuantityButton.setTitle("-", for: .normal)
         decreaseQuantityButton.setTitleColor(.black, for: .normal)
         decreaseQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        decreaseQuantityButton.addTarget(self, action: #selector(decreaseButtonTapped), for: .touchUpInside)
         
         quantityLabel.font = UIFont.systemFont(ofSize: 14)
         quantityLabel.textAlignment = .center
@@ -41,6 +48,7 @@ class CartTableViewCell: UITableViewCell {
         increaseQuantityButton.setTitle("+", for: .normal)
         increaseQuantityButton.setTitleColor(.black, for: .normal)
         increaseQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        increaseQuantityButton.addTarget(self, action: #selector(increaseButtonTapped), for: .touchUpInside)
         
         priceLabel.font = UIFont.systemFont(ofSize: 14)
         priceLabel.textAlignment = .right
@@ -75,5 +83,15 @@ class CartTableViewCell: UITableViewCell {
         menuLabel.text = order.menu.name
         quantityLabel.text = "\(order.count)"
         priceLabel.text = "\(order.totalPrice.formatted(.number))"
+    }
+    
+    @objc
+    func decreaseButtonTapped() {
+        minusButtonTapped()
+    }
+    
+    @objc
+    func increaseButtonTapped() {
+        plusButtonTapped()
     }
 }

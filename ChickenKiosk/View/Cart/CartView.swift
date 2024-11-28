@@ -93,9 +93,19 @@ class CartView: UIView, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartTableViewCell
-        let item = manager.orders[indexPath.row]
+        let index = indexPath.row
+        let item = manager.orders[index]
         cell.configure(with: item)
         cell.selectionStyle = .none
+        cell.minusButtonTapped = {
+            self.manager.orders[index].count -= 1
+            if self.manager.orders[index].count == 0 {
+                self.manager.orders.remove(at: index)
+            }
+        }
+        cell.plusButtonTapped = {
+            self.manager.orders[index].count += 1
+        }
         return cell
     }
 }
