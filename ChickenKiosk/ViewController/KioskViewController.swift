@@ -9,9 +9,11 @@ import UIKit
 import SnapKit
 
 class KioskViewController: UIViewController {
-    private let titleView = TitleView()
     
+    var series: ChickenSeries = .honey
     let manager = OrderManager(orderDidSet: {})
+    
+    private let titleView = TitleView()
     
     private let categoryView: UIView = {
         let view = UIView()
@@ -22,14 +24,7 @@ class KioskViewController: UIViewController {
     
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
-    private lazy var collectionView: ChickenCollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        
-        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout, orderManager: manager)
-        return collectionView
-    }()
+    private lazy var menuView = MenuView()
     
     private lazy var cartView = CartView(mananger: manager)
     private let sumView = SumView()
@@ -38,6 +33,8 @@ class KioskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        menuView.collectionView.dataSource = self
+        menuView.collectionView.delegate = self
         configureUI()
     }
     
@@ -45,7 +42,7 @@ class KioskViewController: UIViewController {
         let subviews = [
             titleView,
             categoryView,
-            collectionView,
+            menuView,
             cartView,
             sumView,
             footerView,
@@ -71,7 +68,7 @@ class KioskViewController: UIViewController {
         
         setupCategoryView()
         
-        collectionView.snp.makeConstraints {
+        menuView.snp.makeConstraints {
             $0.top.equalTo(categoryView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
@@ -81,7 +78,7 @@ class KioskViewController: UIViewController {
         
         cartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(collectionView.snp.bottom).offset(8)
+            make.top.equalTo(menuView.snp.bottom).offset(8)
         }
         
         sumView.snp.makeConstraints { make in
@@ -139,8 +136,8 @@ class KioskViewController: UIViewController {
 extension KioskViewController {
     @objc func categoryTapped(_ sender: CategoryButton) {
         setButtonSelected(for: sender)
-        collectionView.series = sender.series
-        collectionView.reloadData()
+        series = sender.series
+        menuView.collectionView.reloadData()
     }
     
     private func setButtonSelected(for button: UIButton) {
@@ -151,6 +148,40 @@ extension KioskViewController {
         
         button.backgroundColor = .appPrimary
         button.isSelected = true
+    }
+}
+
+extension KioskViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return series.chickens.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell
+        else { return UICollectionViewCell() }
+        
+        cell.bind(series.chickens[indexPath.item])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.item
+        let chicken = series.chickens[index]
+        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
+            manager.orders[index].count += 1
+        } else {
+            let newOrder = Order(menu: chicken)
+            manager.orders.append(newOrder)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width - 10) / 2
+        let height = (collectionView.bounds.height - 10) / 2
+        let size = CGSize(width: width, height: height)
+        return size
     }
 }
 
