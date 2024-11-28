@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/87febc24-a6ae-42cd-af96-379b8925d2ee" width="40"> 6조 꼬끼오스트
+# <img src="https://github.com/user-attachments/assets/87febc24-a6ae-42cd-af96-379b8925d2ee" width="40"> 6조 꼬끼오스크
 ## 📖 목차
 🍀 [소개](#-소개) <br>
 👨‍💻 [팀원](#-팀원) <br>
@@ -34,8 +34,9 @@
 |2024.11.28.| - Order Manager 구현 <br> - 데이터 연동 <br> - 프로젝트 발표 자료 준비|
 
 </br>
-## 👀 프로젝트 구조
-### ℹ️ File Tree
+
+##  👀 프로젝트 구조
+###  ℹ️ File Tree
 
 ```
 📦 ChickenKiosk
@@ -91,6 +92,7 @@
 
 
 </br>
+
 ## 🧨 트러블 슈팅
 1️⃣ **`디자인 패턴 정하기`** <br>
 -
@@ -102,6 +104,7 @@
 🔑 **해결방법** <br>
 해결방법블라블라
 <br>
+
 2️⃣ **2번 트러블슈팅** <br>
 -
 🔒 **문제점** <br>
