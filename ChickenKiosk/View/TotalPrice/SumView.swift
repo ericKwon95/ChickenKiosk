@@ -116,7 +116,7 @@ extension SumView {
     func setupUI() {
         containerView.backgroundColor = .white
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = CGColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+        containerView.layer.borderColor = UIColor.appSecondary.cgColor
         containerView.layer.cornerRadius = 20
         
         addSubViews([containerView,

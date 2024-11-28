@@ -21,7 +21,7 @@ class CategoryButton: UIButton {
         
         titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
-        layer.cornerRadius = 10
+        layer.cornerRadius = 20
     }
     
     required init?(coder: NSCoder) {

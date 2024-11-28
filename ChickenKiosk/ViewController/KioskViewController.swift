@@ -83,13 +83,13 @@ class KioskViewController: UIViewController {
         cartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(150)
-            make.top.equalTo(collectionView.snp.bottom).offset(16)
+            make.top.equalTo(collectionView.snp.bottom).offset(8)
         }
         
         sumView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
             make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.top.equalTo(cartView.snp.bottom).offset(16)
+            make.top.equalTo(cartView.snp.bottom).offset(8)
             make.bottom.equalTo(footerView.snp.top).offset(-16)
             make.height.equalTo(70)
         }

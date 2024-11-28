@@ -31,9 +31,9 @@ class CartView: UIView, UITableViewDataSource {
         // 컨테이너 뷰 추가 및 기본 설정
         addSubview(cartContainerView)
         cartContainerView.backgroundColor = .white
-        cartContainerView.layer.cornerRadius = 10
+        cartContainerView.layer.cornerRadius = 20
         cartContainerView.layer.borderWidth = 1
-        cartContainerView.layer.borderColor = UIColor.lightGray.cgColor
+        cartContainerView.layer.borderColor = UIColor.appSecondary.cgColor
 
         cartContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
