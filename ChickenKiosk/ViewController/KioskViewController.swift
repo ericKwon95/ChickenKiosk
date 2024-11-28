@@ -33,9 +33,8 @@ class KioskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        menuView.collectionView.dataSource = self
-        menuView.collectionView.delegate = self
         configureUI()
+        setupMenuView()
     }
     
     private func configureUI() {
@@ -131,13 +130,23 @@ class KioskViewController: UIViewController {
         // 허니시리즈 버튼은 눌린 채로 시작
         setButtonSelected(for: buttons[0])
     }
+    
+    private func setupMenuView() {
+        menuView.collectionView.dataSource = self
+        menuView.collectionView.delegate = self
+        menuView.pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+    }
 }
 
 extension KioskViewController {
     @objc func categoryTapped(_ sender: CategoryButton) {
-        setButtonSelected(for: sender)
         series = sender.series
         menuView.collectionView.reloadData()
+        setButtonSelected(for: sender)
+        
+        menuView.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        menuView.pageControl.numberOfPages = series.chickens.count / 4 + 1
+        menuView.pageControl.currentPage = 0
     }
     
     private func setButtonSelected(for button: UIButton) {
@@ -182,6 +191,20 @@ extension KioskViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let height = (collectionView.bounds.height - 10) / 2
         let size = CGSize(width: width, height: height)
         return size
+    }
+}
+
+extension KioskViewController: UIScrollViewDelegate {
+    @objc func pageControlTapped(_ sender: UIPageControl) {
+        let pageWidth = menuView.collectionView.bounds.width / 2
+        let offsetX = CGFloat(sender.currentPage) * pageWidth
+        menuView.collectionView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.width
+        let currentPage = ceil(Double(scrollView.contentOffset.x / pageWidth))
+        menuView.pageControl.currentPage = Int(currentPage)
     }
 }
 

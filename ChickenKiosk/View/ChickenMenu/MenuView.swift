@@ -17,14 +17,16 @@ class MenuView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ChickenCell.self, forCellWithReuseIdentifier: ChickenCell.identifier)
         
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        
         return collectionView
     }()
     
-    private lazy var pageControl: UIPageControl = {
+    lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         
         pageControl.currentPage = 0
-        pageControl.numberOfPages = 2
         pageControl.currentPageIndicatorTintColor = .red
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.hidesForSinglePage = true
@@ -49,11 +51,11 @@ class MenuView: UIView {
         
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(pageControl.snp.top)
+            $0.bottom.equalToSuperview().offset(-8)
         }
         
         pageControl.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-8)
+            $0.bottom.equalToSuperview().offset(-5)
             $0.centerX.equalToSuperview()
         }
     }
