@@ -11,16 +11,12 @@ import SnapKit
 class CartView: UIView, UITableViewDataSource {
     private let cartContainerView = UIView()
     private let cartTableView = UITableView()
+    private lazy var cartHeaderStackView = CartHeaderStackView(itemCount: manager.orders.count)
     
-    private var cartItems: [(String, Int)] = [
-        ("허니콤보", 23000),
-        ("레드콤보", 25000),
-        ("교촌콤보", 24000),
-        ("레드순살", 26000),
-        ("허니오리지날", 22000)
-    ]
+    private let manager: OrderManager
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, mananger: OrderManager) {
+        self.manager = mananger
         super.init(frame: frame)
         setUpCartContainerView()
         setUpCartTableView()
@@ -44,13 +40,18 @@ class CartView: UIView, UITableViewDataSource {
         }
 
         // CartHeaderStackView 추가
-        let cartHeaderStackView = CartHeaderStackView(itemCount: cartItems.count)
         cartContainerView.addSubview(cartHeaderStackView)
 
         cartHeaderStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(15)
+        }
+        
+        manager.orderDidSet = {
+            print("reloadData")
+            self.cartTableView.reloadData()
+            self.cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
         }
     }
     
@@ -69,13 +70,14 @@ class CartView: UIView, UITableViewDataSource {
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cartItems.count
+        return manager.orders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartTableViewCell
-        let item = cartItems[indexPath.row]
+        let item = manager.orders[indexPath.row]
         cell.configure(with: item)
+        cell.selectionStyle = .none
         return cell
     }
 }

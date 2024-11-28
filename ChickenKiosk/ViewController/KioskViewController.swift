@@ -12,7 +12,7 @@ class KioskViewController: UIViewController {
     private let titleView = TitleView()
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
-    let manager = OrderManager()
+    let manager = OrderManager(orderDidSet: {})
     
     private let categoryView: UIView = {
         let view = UIView()
@@ -32,7 +32,7 @@ class KioskViewController: UIViewController {
         return collectionView
     }()
     
-    private let cartView = CartView()
+    private lazy var cartView = CartView(mananger: manager)
     private let sumView = SumView()
     private let footerView = FooterView()
     

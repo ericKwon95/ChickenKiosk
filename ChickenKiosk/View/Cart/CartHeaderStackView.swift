@@ -12,17 +12,19 @@ import SnapKit
 class CartHeaderStackView: UIStackView {
     private let cartLabel = UILabel()
     private let itemCountLabel = UILabel()
+    private var itemCount = 0
 
     init(itemCount: Int) {
         super.init(frame: .zero)
-        setUpCartHeaderStackView(itemCount: itemCount)
+        setUpCartHeaderStackView()
+        self.itemCount = itemCount
     }
 
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUpCartHeaderStackView(itemCount: Int) {
+    private func setUpCartHeaderStackView() {
         // StackView 설정
         axis = .horizontal
         distribution = .equalSpacing
@@ -41,5 +43,9 @@ class CartHeaderStackView: UIStackView {
         // StackView에 subviews 추가
         addArrangedSubview(cartLabel)
         addArrangedSubview(itemCountLabel)
+    }
+    
+    func updateTotalCount(newCount: Int) {
+        itemCountLabel.text = "총 \(newCount)개"
     }
 }

@@ -60,8 +60,9 @@ class CartTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with item: (String, Int)) {
-        menuLabel.text = item.0
-        priceLabel.text = "\(item.1)"
+    func configure(with order: Order) {
+        menuLabel.text = order.menu.name
+        quantityLabel.text = "\(order.count)"
+        priceLabel.text = "\(order.totalPrice.formatted(.number))"
     }
 }

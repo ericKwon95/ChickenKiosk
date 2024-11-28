@@ -5,6 +5,23 @@
 //  Created by 권승용 on 11/28/24.
 //
 
+import Combine
+
 final class OrderManager {
-    var orders: [Order] = []
+    var orderDidSet: () -> Void
+    var orders: [Order] = [] {
+        didSet {
+            orderDidSet()
+        }
+    }
+    
+    var totalCount: Int {
+        orders.reduce(0) { partialResult, order in
+            partialResult + order.count
+        }
+    }
+    
+    init(orderDidSet: @escaping () -> Void) {
+        self.orderDidSet = orderDidSet
+    }
 }
