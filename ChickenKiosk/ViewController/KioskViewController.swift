@@ -10,18 +10,17 @@ import SnapKit
 
 class KioskViewController: UIViewController {
     private let titleView = TitleView()
-    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
     let manager = OrderManager(orderDidSet: {})
     
     private let categoryView: UIView = {
         let view = UIView()
-        
         view.backgroundColor = .clear
-        view.layer.cornerRadius = 10
-        
+        view.layer.cornerRadius = 20
         return view
     }()
+    
+    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -109,24 +108,18 @@ class KioskViewController: UIViewController {
     }
     
     private func setupCategoryView() {
-        // indicator view 삭제 시 enumerated() 불필요
-        buttons.enumerated().forEach { index, button in
-            categoryView.addSubview(button)
-            // button.tag = index
-            button.isSelected = false
+        buttons.forEach {
+            categoryView.addSubview($0)
             
-            button.snp.makeConstraints {
+            $0.snp.makeConstraints {
                 $0.width.equalToSuperview().dividedBy(3)
                 $0.height.equalToSuperview()
                 $0.centerY.equalToSuperview()
             }
             
-            button.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
         }
-        
-        // 허니시리즈 버튼은 눌린 채로 시작
-        setButtonSelected(for: buttons[0])
-        
+
         buttons[0].snp.makeConstraints {
             $0.leading.equalToSuperview()
         }
@@ -138,6 +131,9 @@ class KioskViewController: UIViewController {
         buttons[2].snp.makeConstraints {
             $0.trailing.equalToSuperview()
         }
+        
+        // 허니시리즈 버튼은 눌린 채로 시작
+        setButtonSelected(for: buttons[0])
     }
 }
 
