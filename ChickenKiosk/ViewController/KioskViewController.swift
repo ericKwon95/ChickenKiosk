@@ -81,7 +81,6 @@ class KioskViewController: UIViewController {
         
         cartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(150)
             make.top.equalTo(collectionView.snp.bottom).offset(8)
         }
         

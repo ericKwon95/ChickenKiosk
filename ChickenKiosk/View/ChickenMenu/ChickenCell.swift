@@ -13,7 +13,7 @@ class ChickenCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        addSubviews()
+        addSubViews([imageView, textStackView])
         layout()
     }
     
@@ -23,49 +23,48 @@ class ChickenCell: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        
-        view.contentMode = .scaleAspectFill
-        
+        view.contentMode = .scaleAspectFit
         return view
+    }()
+    
+    private lazy var textStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.addArrangedSubViews([nameLabel, priceLabel])
+        return stackView
     }()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 15)
-        
+        label.textAlignment = .center
         return label
     }()
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 13)
-        
+        label.textAlignment = .center
         return label
     }()
-    
-    private func addSubviews() {
-        [imageView, nameLabel, priceLabel]
-            .forEach {
-                addSubview($0)
-            }
-    }
     
     private func layout() {
         imageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(100)
+            $0.height.equalToSuperview().dividedBy(1.5)
             $0.centerX.equalToSuperview()
         }
         
-        nameLabel.snp.makeConstraints {
+        textStackView.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         
+        nameLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+        }
+        
         priceLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
             $0.centerX.equalToSuperview()
         }
     }
