@@ -59,12 +59,7 @@ extension ChickenCollectionView: UICollectionViewDelegate {
         guard let chicken = series?.chickens[index] else {
             return
         }
-        if manager.orders[chicken] == nil {
-            manager.orders[chicken] = 1
-        } else {
-            manager.orders[chicken, default: 1] += 1
-        }
-        print(manager.orders)
+        manager.orders[chicken, default: 0] += 1
     }
 }
 
