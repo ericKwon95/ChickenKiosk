@@ -1,6 +1,6 @@
 //
-//  CartHeaderView.swift
-//  
+//  CartHeaderStackView.swift
+//
 //
 //  Created by eden on 11/28/24.
 //
@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+// CartHeaderView 클래스 정의
 class CartHeaderStackView: UIStackView {
     private let cartLabel = UILabel()
     private let itemCountLabel = UILabel()
@@ -18,8 +19,7 @@ class CartHeaderStackView: UIStackView {
     }
 
     required init(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpCartHeaderStackView(itemCount: 0) // 기본 초기화 시 호출
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func setUpCartHeaderStackView(itemCount: Int) {
@@ -33,7 +33,7 @@ class CartHeaderStackView: UIStackView {
         cartLabel.textAlignment = .left
         cartLabel.textColor = .black
 
-        // 총 개수 label 설정
+        // 총 갯수 label 설정
         itemCountLabel.text = "총 \(itemCount)개"
         itemCountLabel.textAlignment = .right
         itemCountLabel.textColor = .black
@@ -43,4 +43,3 @@ class CartHeaderStackView: UIStackView {
         addArrangedSubview(itemCountLabel)
     }
 }
-
