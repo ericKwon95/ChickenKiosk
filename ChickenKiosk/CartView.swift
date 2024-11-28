@@ -26,7 +26,6 @@ class CartView: UIView, UITableViewDataSource {
         super.init(frame: frame)
         setUpCartContainerView()
         setUpCartTableView()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -89,9 +88,9 @@ class CartView: UIView, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartTableViewCell
-            let item = cartItems[indexPath.row]
-            cell.configure(with: item)
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartTableViewCell
+        let item = cartItems[indexPath.row]
+        cell.configure(with: item)
+        return cell
+    }
 }

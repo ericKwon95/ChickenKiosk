@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class CartTableViewCell: UITableViewCell {
     private let menuLabel = UILabel()
-    private let minusButton = UIButton()
+    private let decreaceQuantityButton = UIButton()
     private let quantityLabel = UILabel()
-    private let plusButton = UIButton()
+    private let increaseQuantityButton = UIButton()
     private let priceLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,21 +28,21 @@ class CartTableViewCell: UITableViewCell {
         // 메뉴, 수량, 가격
         menuLabel.font = UIFont.systemFont(ofSize: 14)
         
-        minusButton.setTitle("-", for: .normal)
-        minusButton.setTitleColor(.black, for: .normal)
-        minusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        decreaceQuantityButton.setTitle("-", for: .normal)
+        decreaceQuantityButton.setTitleColor(.black, for: .normal)
+        decreaceQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         quantityLabel.text = "1"
         quantityLabel.font = UIFont.systemFont(ofSize: 14)
         quantityLabel.textAlignment = .center
         
-        plusButton.setTitle("+", for: .normal)
-        plusButton.setTitleColor(.black, for: .normal)
-        plusButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        increaseQuantityButton.setTitle("+", for: .normal)
+        increaseQuantityButton.setTitleColor(.black, for: .normal)
+        increaseQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         priceLabel.font = UIFont.systemFont(ofSize: 14)
         
-        let quantityStackView  = UIStackView(arrangedSubviews: [minusButton, quantityLabel, plusButton])
+        let quantityStackView  = UIStackView(arrangedSubviews: [decreaceQuantityButton, quantityLabel, increaseQuantityButton])
         quantityStackView.axis = .horizontal
         quantityStackView.spacing = 8
         
