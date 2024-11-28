@@ -8,21 +8,9 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
-    private let cartView = CartView()
-    
-    // cart TableView 레이아웃 임의로 설정
-    private func setUpCartView() {
-        view.addSubview(cartView)
-        cartView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(150)
-            make.height.equalTo(250)
-        }
-    }
-
+class KioskViewController: UIViewController {
     private let titleView = TitleView()
-    
+    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     private let categoryView: UIView = {
         let view = UIView()
         
@@ -31,9 +19,6 @@ class ViewController: UIViewController {
         
         return view
     }()
-    
-    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
-    
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -42,21 +27,29 @@ class ViewController: UIViewController {
         let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
-    
+    private let cartView = CartView()
+    private let sumView = SumView()
     private let footerView = FooterView()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        setCollectionView()
         view.backgroundColor = .white
-        configureFooterViewUI()
-        setupCategoryView()
-        setUpCartView()
+        configureUI()
     }
     
     private func configureUI() {
-        view.addSubview(titleView)
+        let subviews = [
+            titleView,
+            categoryView,
+            collectionView,
+            cartView,
+            sumView,
+            footerView,
+        ]
+        
+        subviews.forEach {
+            view.addSubview($0)
+        }
         
         titleView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(16)
@@ -64,24 +57,7 @@ class ViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.height.equalTo(50)
         }
-    }
-  
-    private func setCollectionView() {
-        [categoryView, collectionView]
-            .forEach {
-                view.addSubview($0)
-            }
         
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(categoryView.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(300)
-        }
-    }
-    
-    private func setupCategoryView() {        
         categoryView.snp.makeConstraints {
             $0.top.equalTo(titleView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
@@ -89,6 +65,39 @@ class ViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
+        setupCategoryView()
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(categoryView.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.bounds.height / 3)
+        }
+        
+        cartView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(150)
+            make.top.equalTo(collectionView.snp.bottom).offset(16)
+        }
+        
+        sumView.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.top.equalTo(cartView.snp.bottom).offset(16)
+            make.bottom.equalTo(footerView.snp.top).offset(-16)
+            make.height.equalTo(70)
+        }
+        
+        footerView.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(16)
+            make.trailing.equalTo(view.snp.trailing).offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.height.equalTo(44)
+        }
+    }
+    
+    private func setupCategoryView() {
         // indicator view 삭제 시 enumerated() 불필요
         buttons.enumerated().forEach { index, button in
             categoryView.addSubview(button)
@@ -119,20 +128,9 @@ class ViewController: UIViewController {
             $0.trailing.equalToSuperview()
         }
     }
-
- 	/// 하단 뷰 subview에 추가 및 위치 설정
-    func configureFooterViewUI() {
-        view.addSubview(footerView)
-        footerView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-            make.height.equalTo(44)
-        }
-    }
 }
 
-extension ViewController {
+extension KioskViewController {
     @objc func categoryTapped(_ sender: CategoryButton) {
         setButtonSelected(for: sender)
         collectionView.series = sender.series
@@ -149,12 +147,12 @@ extension ViewController {
         button.isSelected = true
     }
 }
-    
+
 #if DEBUG
 import SwiftUI
 struct PreView: PreviewProvider {
     static var previews: some View {
-        ViewController().toPreview()
+        KioskViewController().toPreview()
     }
 }
 #endif
