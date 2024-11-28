@@ -9,7 +9,18 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    private let cartView = CartView()
     
+    // cart TableView 레이아웃 임의로 설정
+    private func setUpCartView() {
+        view.addSubview(cartView)
+        cartView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(150)
+            make.height.equalTo(250)
+        }
+    }
+
     private let titleView = TitleView()
     
     private let categoryView: UIView = {
@@ -20,17 +31,6 @@ class ViewController: UIViewController {
         
         return view
     }()
-    
-    /*
-    private let indicatorView: UIView = {
-        let view = UIView()
-        
-        view.backgroundColor = .appPrimary
-        view.layer.cornerRadius = 10
-        
-        return view
-    }()
-    */
     
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
@@ -52,6 +52,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         configureFooterViewUI()
         setupCategoryView()
+        setUpCartView()
     }
     
     private func configureUI() {
@@ -80,22 +81,13 @@ class ViewController: UIViewController {
         }
     }
     
-    private func setupCategoryView() {
-        // categoryView.addSubview(indicatorView)
-        
+    private func setupCategoryView() {        
         categoryView.snp.makeConstraints {
             $0.top.equalTo(titleView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
             $0.height.equalTo(40)
         }
-        
-        /*
-        indicatorView.snp.makeConstraints {
-            $0.top.bottom.leading.equalToSuperview()
-            $0.width.equalToSuperview().dividedBy(3)
-        }
-        */
         
         // indicator view 삭제 시 enumerated() 불필요
         buttons.enumerated().forEach { index, button in
