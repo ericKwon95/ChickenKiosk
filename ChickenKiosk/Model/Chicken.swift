@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MockChicken {
+struct Chicken: Hashable {
     let name: String
     let price: Int
     let imageURL: String
@@ -21,7 +21,7 @@ struct MockChicken {
     }
 }
 
-enum MockChickenSeries {
+enum ChickenSeries {
     case honey
     case red
     case kyochon
@@ -34,7 +34,7 @@ enum MockChickenSeries {
         }
     }
     
-    var chickens: [MockChicken] {
+    var chickens: [Chicken] {
         switch self {
         case .honey:
             [

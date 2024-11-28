@@ -9,9 +9,9 @@ import UIKit
 
 class CategoryButton: UIButton {
     
-    let series: MockChickenSeries
+    let series: ChickenSeries
     
-    init(_ series: MockChickenSeries) {
+    init(_ series: ChickenSeries) {
         self.series = series
         super.init(frame: .zero)
         

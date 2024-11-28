@@ -11,6 +11,9 @@ import SnapKit
 class KioskViewController: UIViewController {
     private let titleView = TitleView()
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
+    
+    let manager = OrderManager()
+    
     private let categoryView: UIView = {
         let view = UIView()
         
@@ -19,14 +22,16 @@ class KioskViewController: UIViewController {
         
         return view
     }()
+    
     private lazy var collectionView: ChickenCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         
-        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout, orderManager: manager)
         return collectionView
     }()
+    
     private let cartView = CartView()
     private let sumView = SumView()
     private let footerView = FooterView()

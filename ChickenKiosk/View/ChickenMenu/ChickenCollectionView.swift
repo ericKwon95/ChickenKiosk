@@ -9,10 +9,12 @@ import UIKit
 
 class ChickenCollectionView: UICollectionView {
     
-    var series: MockChickenSeries?
+    var series: ChickenSeries?
+    let manager: OrderManager
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: .zero, collectionViewLayout: layout)
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, orderManager: OrderManager) {
+        self.manager = orderManager
+        super.init(frame: frame, collectionViewLayout: layout)
         setup()
         self.series = .honey
     }
@@ -53,7 +55,16 @@ extension ChickenCollectionView: UICollectionViewDataSource {
 
 extension ChickenCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let index = indexPath.item
+        guard let chicken = series?.chickens[index] else {
+            return
+        }
+        if manager.orders[chicken] == nil {
+            manager.orders[chicken] = 1
+        } else {
+            manager.orders[chicken, default: 1] += 1
+        }
+        print(manager.orders)
     }
 }
 
