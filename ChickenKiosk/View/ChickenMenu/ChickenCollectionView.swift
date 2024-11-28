@@ -59,7 +59,13 @@ extension ChickenCollectionView: UICollectionViewDelegate {
         guard let chicken = series?.chickens[index] else {
             return
         }
-        manager.orders[chicken, default: 0] += 1
+        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
+            manager.orders[index].count += 1
+        } else {
+            let newOrder = Order(menu: chicken)
+            manager.orders.append(newOrder)
+        }
+        print(manager.orders)
     }
 }
 
