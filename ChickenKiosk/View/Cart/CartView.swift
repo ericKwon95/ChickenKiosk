@@ -11,8 +11,6 @@ import SnapKit
 class CartView: UIView, UITableViewDataSource {
     private let cartContainerView = UIView()
     private let cartTableView = UITableView()
-    private let itemCountLabel = UILabel()
-    private let cartLabel = UILabel()
     
     private var cartItems: [(String, Int)] = [
         ("허니콤보", 23000),
@@ -40,32 +38,19 @@ class CartView: UIView, UITableViewDataSource {
         cartContainerView.layer.cornerRadius = 10
         cartContainerView.layer.borderWidth = 1
         cartContainerView.layer.borderColor = UIColor.lightGray.cgColor
-        
+
         cartContainerView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        
-        // 장바구니 label 설정
-        cartLabel.text = "장바구니"
-        cartLabel.textAlignment = .left
-        cartLabel.textColor = .black
-        
-        // 총 갯수 label 설정
-        itemCountLabel.text = "총 \(cartItems.count)개"
-        itemCountLabel.textAlignment = .right
-        itemCountLabel.textColor = .black
-        
-        // 장바구니 label과 총 갯수 label을 StackView로 추가
-        let cartHeaderStackView = UIStackView(arrangedSubviews: [cartLabel, itemCountLabel])
-        cartHeaderStackView.axis = .horizontal
-        cartHeaderStackView.distribution = .equalSpacing
-        cartHeaderStackView.alignment = .center
-        
+
+        // CartHeaderStackView 추가
+        let cartHeaderStackView = CartHeaderStackView(itemCount: cartItems.count)
         cartContainerView.addSubview(cartHeaderStackView)
-        
-        cartHeaderStackView.snp.makeConstraints{ make in
+
+        cartHeaderStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40) // 높이를 명시적으로 지정
         }
     }
     
@@ -75,7 +60,7 @@ class CartView: UIView, UITableViewDataSource {
         cartTableView.dataSource = self
         cartTableView.register(CartTableViewCell.self, forCellReuseIdentifier: "CartCell")
         cartTableView.separatorStyle = .singleLine
-        
+
         cartTableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(60)
             make.leading.trailing.bottom.equalToSuperview().inset(10)
