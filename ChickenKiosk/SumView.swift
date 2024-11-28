@@ -117,8 +117,8 @@ extension SumView {
     // TODO: - 추후 여백 조정
     func setupConstraints() {
         containerView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
