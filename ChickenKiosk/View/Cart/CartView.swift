@@ -11,6 +11,14 @@ import SnapKit
 class CartView: UIView, UITableViewDataSource {
     private let cartContainerView = UIView()
     private let cartTableView = UITableView()
+    private let emptyCartLabel: UILabel = {
+        let label = UILabel()
+        label.text = "장바구니가 비어있습니다"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
     private lazy var cartHeaderStackView = CartHeaderStackView(itemCount: manager.orders.count)
     
     private let manager: OrderManager
@@ -20,15 +28,17 @@ class CartView: UIView, UITableViewDataSource {
         super.init(frame: frame)
         setUpCartContainerView()
         setUpCartTableView()
+        setUpEmptyCartLabel()
+        reloadData() // 초기 상태 반영을 위해 추가
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // cart 컨테이너 뷰 설정 함수
+    // cart 컴테이너 뷰 설정 함수
     func setUpCartContainerView() {
-        // 컨테이너 뷰 추가 및 기본 설정
+        // 콘테이너 뷰 추가 및 기본 설정
         addSubview(cartContainerView)
         cartContainerView.backgroundColor = .white
         cartContainerView.layer.cornerRadius = 20
@@ -48,10 +58,19 @@ class CartView: UIView, UITableViewDataSource {
             make.height.equalTo(15)
         }
     }
+    
+    func setUpEmptyCartLabel() {
+        cartContainerView.addSubview(emptyCartLabel)
+        emptyCartLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
 
     func reloadData() {
         cartTableView.reloadData()
         cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
+        emptyCartLabel.isHidden = manager.orders.count > 0
+        cartContainerView.bringSubviewToFront(emptyCartLabel)
     }
     
     // cart 테이블 뷰 설정 함수
@@ -62,7 +81,7 @@ class CartView: UIView, UITableViewDataSource {
         cartTableView.separatorStyle = .singleLine
 
         cartTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(40)
+            make.top.equalTo(cartHeaderStackView.snp.bottom).offset(16)
             make.leading.trailing.bottom.equalToSuperview().inset(10)
         }
     }

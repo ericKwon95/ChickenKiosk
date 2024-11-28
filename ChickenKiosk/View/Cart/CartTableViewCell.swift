@@ -10,7 +10,7 @@ import SnapKit
 
 class CartTableViewCell: UITableViewCell {
     private let menuLabel = UILabel()
-    private let decreaceQuantityButton = UIButton()
+    private let decreaseQuantityButton = UIButton()
     private let quantityLabel = UILabel()
     private let increaseQuantityButton = UIButton()
     private let priceLabel = UILabel()
@@ -24,39 +24,50 @@ class CartTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpCell () {
-        // 메뉴, 수량, 가격
+    private func setUpCell() {
+        // 메뉴, 수량, 가격 설정
         menuLabel.font = UIFont.systemFont(ofSize: 14)
+        menuLabel.textAlignment = .left
+        menuLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
-        decreaceQuantityButton.setTitle("-", for: .normal)
-        decreaceQuantityButton.setTitleColor(.black, for: .normal)
-        decreaceQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        decreaseQuantityButton.setTitle("-", for: .normal)
+        decreaseQuantityButton.setTitleColor(.black, for: .normal)
+        decreaseQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
-        quantityLabel.text = "1"
         quantityLabel.font = UIFont.systemFont(ofSize: 14)
         quantityLabel.textAlignment = .center
+        quantityLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         increaseQuantityButton.setTitle("+", for: .normal)
         increaseQuantityButton.setTitleColor(.black, for: .normal)
         increaseQuantityButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         priceLabel.font = UIFont.systemFont(ofSize: 14)
+        priceLabel.textAlignment = .right
+        priceLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
-        let quantityStackView  = UIStackView(arrangedSubviews: [decreaceQuantityButton, quantityLabel, increaseQuantityButton])
+        // 수량 조절 스택 뷰 생성
+        let quantityStackView = UIStackView(arrangedSubviews: [decreaseQuantityButton, quantityLabel, increaseQuantityButton])
         quantityStackView.axis = .horizontal
         quantityStackView.spacing = 8
+        quantityStackView.alignment = .center
+        quantityStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
-        // 메뉴, 수량, 가격 셀 StackView
-        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, quantityStackView, priceLabel])
+        // 전체 셀 스택 뷰 생성
+        let cellStackView = UIStackView(arrangedSubviews: [menuLabel, UIView(), quantityStackView, UIView(), priceLabel])
         cellStackView.axis = .horizontal
-        cellStackView.distribution = .equalSpacing
         cellStackView.alignment = .center
         cellStackView.spacing = 10
+        cellStackView.distribution = .equalSpacing
         
         contentView.addSubview(cellStackView)
         
         cellStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(8)
+        }
+        
+        quantityStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
         }
     }
     
