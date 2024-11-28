@@ -50,7 +50,7 @@ class CartView: UIView, UITableViewDataSource {
         cartHeaderStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(40) // 높이를 명시적으로 지정
+            make.height.equalTo(15)
         }
     }
     
@@ -62,7 +62,7 @@ class CartView: UIView, UITableViewDataSource {
         cartTableView.separatorStyle = .singleLine
 
         cartTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
+            make.top.equalToSuperview().offset(40)
             make.leading.trailing.bottom.equalToSuperview().inset(10)
         }
     }
