@@ -9,6 +9,18 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    private let cartView = CartView()
+    
+    // cart TableView 레이아웃 임의로 설정
+    private func setUpCartView() {
+        view.addSubview(cartView)
+        cartView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(150)
+            make.height.equalTo(250)
+        }
+    }
+
     private let titleView = TitleView()
     private let footerView = FooterView()
     private lazy var collectionView: ChickenCollectionView = {
@@ -26,6 +38,7 @@ class ViewController: UIViewController {
         setCollectionView()
         view.backgroundColor = .white
         configureFooterViewUI()
+        setUpCartView()
     }
     
     private func configureUI() {
