@@ -56,7 +56,7 @@ class CartTableViewCell: UITableViewCell {
         contentView.addSubview(cellStackView)
         
         cellStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+            make.edges.equalToSuperview().inset(8)
         }
     }
     
