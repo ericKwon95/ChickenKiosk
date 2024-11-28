@@ -70,8 +70,7 @@ class CartView: UIView, UITableViewDataSource {
         cartTableView.reloadData()
         cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
         emptyCartLabel.isHidden = manager.orders.count > 0
-        cartContainerView.bringSubviewToFront(emptyCartLabel) // 레이블을 맨 앞으로 가져옴
-        print("Empty Cart Label Hidden: \(emptyCartLabel.isHidden)") // 로그 추가
+        cartContainerView.bringSubviewToFront(emptyCartLabel)
     }
     
     // cart 테이블 뷰 설정 함수
