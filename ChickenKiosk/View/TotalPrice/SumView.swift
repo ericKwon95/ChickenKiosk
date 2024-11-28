@@ -93,15 +93,15 @@ final class SumView: UIView {
     }
     
     func updateTotal(totalPrice: Int) {
-        orderAmount.text = "\(totalPrice)"
-        totalOrderAmount.text = "\(totalPrice-3000)"
+        orderAmount.text = "\(totalPrice.formatted(.number))"
+        totalOrderAmount.text = "\((totalPrice-3000).formatted(.number))"
         showTogoDiscount()
         // TODO: 메뉴 모두 제거 시 hide Discount
     }
     
     private func showTogoDiscount() {
         deliveryTipsTitle.text = "포장할인"
-        deliveryTips.text = "-3000"
+        deliveryTips.text = "-3,000"
     }
     
     private func hideTogoDiscount() {
