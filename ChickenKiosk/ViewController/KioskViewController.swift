@@ -220,7 +220,11 @@ extension KioskViewController {
     }
     
     @objc func confirmButtonTapped() {
-        presentAlert(false)
+        if manager.orders.isEmpty {
+            failAlert()
+        } else {
+            presentAlert(false)
+        }
     }
     
     private func presentAlert(_ isCancelling: Bool) {
@@ -247,7 +251,15 @@ extension KioskViewController {
         alert.addAction(okayButton)
         present(alert, animated: true)
     }
+    
+    private func failAlert() {
+        let alert = UIAlertController(title: "주문실패", message: "장바구니가 비어있습니다.\n먹고 싶은 치킨을 담아주세요!", preferredStyle: .alert)
+        let okayButton = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okayButton)
+        present(alert, animated: true)
+    }
 }
+
 
 #if DEBUG
 import SwiftUI
