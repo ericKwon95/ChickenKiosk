@@ -147,7 +147,7 @@
 ## 💻 실행 화면
 | 메인 화면 | 카테고리메뉴 | 메뉴 선택 |
 |:--------:|:--------:|:--------:|
-|<img src="https://hackmd.io/_uploads/ByiQ3SmPh.gif" width="250">|<img src="https://hackmd.io/_uploads/Hy6UnBmPn.gif" width="250">|<img src="https://hackmd.io/_uploads/BJyO3Hmwh.gif" width="250">|
+|<img src="https://github.com/user-attachments/assets/0bd0470e-b8ab-40e1-ac80-9a1cc3a3e713" width="250">|<img src="https://hackmd.io/_uploads/Hy6UnBmPn.gif" width="250">|<img src="https://hackmd.io/_uploads/BJyO3Hmwh.gif" width="250">|
 
 | 장바구니추가 | 수량추가 | 수량삭제 |
 |:--------:|:--------:|:--------:|
