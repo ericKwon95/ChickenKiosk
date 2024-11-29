@@ -93,12 +93,7 @@
 2. **Xcode에서 열기**: Xcode를 열고, 클론한 프로젝트 폴더를 엽니다.
 </br>
 
-3. **의존성 설치**: 프로젝트에서 사용하는 의존성을 설치합니다.
-
-- `SnapKit` 등 필요한 라이브러리를 CocoaPods 또는 Swift Package Manager로 설치합니다.
- </br>
-
-4. **시뮬레이터 실행**: Xcode에서 빌드 타겟을 선택하고, iOS 시뮬레이터에서 실행합니다.
+3. **시뮬레이터 실행**: Xcode에서 빌드 타겟을 선택하고, iOS 시뮬레이터에서 실행합니다.
 </br>
 </br>
 
@@ -147,15 +142,15 @@
 ## 💻 실행 화면
 | 메인 화면 | 카테고리메뉴 | 메뉴 화면 |
 |:--------:|:--------:|:--------:|
-|<img src="https://github.com/user-attachments/assets/0bd0470e-b8ab-40e1-ac80-9a1cc3a3e713" width="250">|<img src="https://github.com/user-attachments/assets/214d2d1c-5099-4818-a8fc-9bd2c4feaff5" width="250">|<img src="https://github.com/user-attachments/assets/92168c8c-e42f-4dc0-ba77-015a27e22520" width="250">|
+|<img src="https://github.com/user-attachments/assets/0bd0470e-b8ab-40e1-ac80-9a1cc3a3e713" width="250">|<img src="https://github.com/user-attachments/assets/e92b5c92-e140-4b83-82b2-6e28c2d3fa73" width="250">|<img src="https://github.com/user-attachments/assets/177a20ac-48c0-4866-92a9-a9e9b510ac90" width="250">|
 
 | 장바구니추가 | 수량추가 | 수량삭제 |
 |:--------:|:--------:|:--------:|
-|<img src="https://github.com/user-attachments/assets/7a00b033-e95a-41a0-bb62-c3196e54003e" width="250">|<img src="https://hackmd.io/_uploads/HJFH0HmP2.gif" width="250">|<img src="https://hackmd.io/_uploads/Byefa1qOD3.gif" width="250">|
+|<img src="https://github.com/user-attachments/assets/74857c14-e9af-4130-a446-fbb0d64ac599" width="250">|<img src="https://github.com/user-attachments/assets/690afbdb-49e5-4b47-a084-b9dbc9c36415" width="250">|<img src="https://github.com/user-attachments/assets/90c4cc4e-7391-4bdf-9a87-0888351a9d14" width="250">|
 
 | 총합계 | 주문확인 | 주문취소 |
 |:--------:|:--------:|:--------:|
-|<img src="https://hackmd.io/_uploads/Hy090Smv3.gif" width="250">|<img src="https://hackmd.io/_uploads/rJkh0BXvn.gif" width="250">|<img src="https://hackmd.io/_uploads/B1i3CHXDn.gif" width="250">|
+|<img src="https://github.com/user-attachments/assets/84006f71-5bf3-4ab7-9b3e-d172aa0c42e3" width="250">|<img src="https://github.com/user-attachments/assets/0462b29f-b781-4b3a-8707-7e7ba1e156b7" width="250">|<img src="https://github.com/user-attachments/assets/08e63193-66ee-493d-8493-179a3b4879d5" width="250">|
 
 <br>
 
