@@ -9,9 +9,11 @@ import UIKit
 import SnapKit
 
 class KioskViewController: UIViewController {
-    private let titleView = TitleView()
     
+    var series: ChickenSeries = .honey
     let manager = OrderManager(orderDidSet: {})
+    
+    private let titleView = TitleView()
     
     private let categoryView: UIView = {
         let view = UIView()
@@ -22,14 +24,7 @@ class KioskViewController: UIViewController {
     
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
-    private lazy var collectionView: ChickenCollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        
-        let collectionView = ChickenCollectionView(frame: .zero, collectionViewLayout: layout, orderManager: manager)
-        return collectionView
-    }()
+    private lazy var menuView = MenuView()
     
     private lazy var cartView = CartView(mananger: manager)
     private let sumView = SumView()
@@ -39,13 +34,14 @@ class KioskViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureUI()
+        setupMenuView()
     }
     
     private func configureUI() {
         let subviews = [
             titleView,
             categoryView,
-            collectionView,
+            menuView,
             cartView,
             sumView,
             footerView,
@@ -71,7 +67,7 @@ class KioskViewController: UIViewController {
         
         setupCategoryView()
         
-        collectionView.snp.makeConstraints {
+        menuView.snp.makeConstraints {
             $0.top.equalTo(categoryView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
@@ -81,7 +77,7 @@ class KioskViewController: UIViewController {
         
         cartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(collectionView.snp.bottom).offset(8)
+            make.top.equalTo(menuView.snp.bottom).offset(8)
         }
         
         sumView.snp.makeConstraints { make in
@@ -134,13 +130,23 @@ class KioskViewController: UIViewController {
         // 허니시리즈 버튼은 눌린 채로 시작
         setButtonSelected(for: buttons[0])
     }
+    
+    private func setupMenuView() {
+        menuView.collectionView.dataSource = self
+        menuView.collectionView.delegate = self
+        menuView.pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+    }
 }
 
 extension KioskViewController {
     @objc func categoryTapped(_ sender: CategoryButton) {
+        series = sender.series
+        menuView.collectionView.reloadData()
         setButtonSelected(for: sender)
-        collectionView.series = sender.series
-        collectionView.reloadData()
+        
+        menuView.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        menuView.pageControl.numberOfPages = series.chickens.count / 4 + 1
+        menuView.pageControl.currentPage = 0
     }
     
     private func setButtonSelected(for button: UIButton) {
@@ -151,6 +157,54 @@ extension KioskViewController {
         
         button.backgroundColor = .appPrimary
         button.isSelected = true
+    }
+}
+
+extension KioskViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return series.chickens.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell
+        else { return UICollectionViewCell() }
+        
+        cell.bind(series.chickens[indexPath.item])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.item
+        let chicken = series.chickens[index]
+        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
+            manager.orders[index].count += 1
+        } else {
+            let newOrder = Order(menu: chicken)
+            manager.orders.append(newOrder)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width - 10) / 2
+        let height = (collectionView.bounds.height - 10) / 2
+        let size = CGSize(width: width, height: height)
+        return size
+    }
+}
+
+extension KioskViewController: UIScrollViewDelegate {
+    @objc func pageControlTapped(_ sender: UIPageControl) {
+        let pageWidth = menuView.collectionView.bounds.width / 2
+        let offsetX = CGFloat(sender.currentPage) * pageWidth
+        menuView.collectionView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.width
+        let currentPage = ceil(Double(scrollView.contentOffset.x / pageWidth))
+        menuView.pageControl.currentPage = Int(currentPage)
     }
 }
 
