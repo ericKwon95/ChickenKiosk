@@ -35,6 +35,7 @@ class KioskViewController: UIViewController {
         view.backgroundColor = .white
         configureUI()
         setupMenuView()
+        setupFooterView()
     }
     
     private func configureUI() {
@@ -136,6 +137,11 @@ class KioskViewController: UIViewController {
         menuView.collectionView.delegate = self
         menuView.pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
     }
+    
+    private func setupFooterView() {
+        footerView.cancelOrderButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        footerView.confirmOrderButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+    }
 }
 
 extension KioskViewController {
@@ -205,6 +211,41 @@ extension KioskViewController: UIScrollViewDelegate {
         let pageWidth = scrollView.frame.width
         let currentPage = ceil(Double(scrollView.contentOffset.x / pageWidth))
         menuView.pageControl.currentPage = Int(currentPage)
+    }
+}
+
+extension KioskViewController {
+    @objc func cancelButtonTapped() {
+        presentAlert(true)
+    }
+    
+    @objc func confirmButtonTapped() {
+        presentAlert(false)
+    }
+    
+    private func presentAlert(_ isCancelling: Bool) {
+        let alert = UIAlertController(
+            title: isCancelling ? "주문취소" : "주문하기",
+            message: isCancelling ? "장바구니 내역이 삭제됩니다. 취소하시겠습니까?" : "주문을 완료하시겠습니까?",
+            preferredStyle: .alert
+        )
+        let yesButton = UIAlertAction(title: "네", style: .default, handler: { [weak self] _ in
+            self?.manager.orders.removeAll()
+            if !isCancelling {
+                self?.completeAlert()
+            }
+        })
+        let noButton = UIAlertAction(title: "아니오", style: .destructive)
+        alert.addAction(yesButton)
+        alert.addAction(noButton)
+        present(alert, animated: true)
+    }
+    
+    private func completeAlert() {
+        let alert = UIAlertController(title: "주문완료", message: "주문이 완료되었습니다!", preferredStyle: .alert)
+        let okayButton = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okayButton)
+        present(alert, animated: true)
     }
 }
 
