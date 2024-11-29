@@ -130,7 +130,7 @@
 │   │   └── 🛒 CartView.swift
 │   ├── 📂 ChickenMenu
 │   │   ├── 🍗 ChickenCell.swift
-│   │   └── 📦 ChickenCollectionView.swift
+│   │   └── 🍽️ MenuView.swift
 │   ├── 📂 MenuCategory
 │   │   └── 🏷️ CategoryButton.swift
 │   ├── 📂 Title & Footer
@@ -138,8 +138,8 @@
 │   │   └── 🏷️ TitleView.swift
 │   ├── 📂 TotalPrice
 │   │   └── 💰 SumView.swift
-│   └── 📂 ViewController
-│       └── 🖥️ KioskViewController.swift
+├── 📂 ViewController
+│   └── 🖥️ KioskViewController.swift
 ```
 
 </br>
