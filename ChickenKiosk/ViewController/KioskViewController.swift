@@ -253,7 +253,7 @@ extension KioskViewController {
     }
     
     private func failAlert() {
-        let alert = UIAlertController(title: "주문실패", message: "장바구니가 비어있습니다. 먹고 싶은 치킨을 담아주세요!", preferredStyle: .alert)
+        let alert = UIAlertController(title: "주문실패", message: "장바구니가 비어있습니다.\n먹고 싶은 치킨을 담아주세요!", preferredStyle: .alert)
         let okayButton = UIAlertAction(title: "확인", style: .default)
         alert.addAction(okayButton)
         present(alert, animated: true)
