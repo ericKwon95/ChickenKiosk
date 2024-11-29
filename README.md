@@ -145,13 +145,13 @@
 </br>
 
 ## 💻 실행 화면
-| 메인 화면 | 카테고리메뉴 | 메뉴 선택 |
+| 메인 화면 | 카테고리메뉴 | 메뉴 화면 |
 |:--------:|:--------:|:--------:|
-|<img src="https://github.com/user-attachments/assets/0bd0470e-b8ab-40e1-ac80-9a1cc3a3e713" width="250">|<img src="https://hackmd.io/_uploads/Hy6UnBmPn.gif" width="250">|<img src="https://hackmd.io/_uploads/BJyO3Hmwh.gif" width="250">|
+|<img src="https://github.com/user-attachments/assets/0bd0470e-b8ab-40e1-ac80-9a1cc3a3e713" width="250">|<img src="https://github.com/user-attachments/assets/214d2d1c-5099-4818-a8fc-9bd2c4feaff5" width="250">|<img src="https://github.com/user-attachments/assets/92168c8c-e42f-4dc0-ba77-015a27e22520" width="250">|
 
 | 장바구니추가 | 수량추가 | 수량삭제 |
 |:--------:|:--------:|:--------:|
-|<img src="https://hackmd.io/_uploads/ryu8ArmD2.gif" width="250">|<img src="https://hackmd.io/_uploads/HJFH0HmP2.gif" width="250">|<img src="https://hackmd.io/_uploads/Byefa1qOD3.gif" width="250">|
+|<img src="https://github.com/user-attachments/assets/7a00b033-e95a-41a0-bb62-c3196e54003e" width="250">|<img src="https://hackmd.io/_uploads/HJFH0HmP2.gif" width="250">|<img src="https://hackmd.io/_uploads/Byefa1qOD3.gif" width="250">|
 
 | 총합계 | 주문확인 | 주문취소 |
 |:--------:|:--------:|:--------:|
